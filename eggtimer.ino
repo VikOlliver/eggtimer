@@ -4,6 +4,7 @@
  */
 
 #include <Arduino.h>
+#include <EEPROM.h>
 #include "TM1637Display.h"
 
 // Digital Pins
@@ -53,6 +54,10 @@ void setup()
   switchAdown=false;
   switchBdown=false;
   state=ST_INIT;
+  // See if our signature is in EEPROM
+  if ((EEPROM.read(0)==0x0b)&&(EEPROM.read(1)=='u')&&(EEPROM.read(2)=='g')&&(EEPROM.read(3)==0x0a)) {
+    timeTarget=EEPROM.read(4)+EEPROM.read(5)*256;
+  }
 }
 
 boolean switchApressed() {
@@ -196,6 +201,13 @@ void loop()
           display.showNumberDec(count, true);
           // Convert displayed MMSS into seconds
           timeTarget=60*(count/100)+count%100;
+          // Write time and signature to EEPROM
+          EEPROM.write(0,0x0b);
+          EEPROM.write(1,'u');
+          EEPROM.write(2,'g');
+          EEPROM.write(3,0x0a);
+          EEPROM.write(4,timeTarget%256);
+          EEPROM.write(5,timeTarget/256);
           state=ST_TIMER_START;
         }
         else {
