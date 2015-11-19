@@ -258,6 +258,10 @@ void loop()
         digitalWrite(RELAY_PIN,HIGH);
         for (int k=0; k<20; k++) {
           tone(ALARM_PIN,2500,250);
+          if (switchApressed()||switchBpressed()) {
+            state=ST_INIT;
+            break;
+          }
           delay(500);
         }
         if (digitalRead(STALL_PIN)==HIGH) state=ST_INIT;
