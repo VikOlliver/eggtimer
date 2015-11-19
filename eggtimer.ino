@@ -16,6 +16,7 @@
 #define SWITCH_A_PIN  4
 #define SWITCH_B_PIN  5
 #define RELAY_PIN     6
+#define STALL_PIN     7
 
 // Timer states
 #define ST_INIT         0
@@ -51,6 +52,7 @@ void setup()
   pinMode(13,OUTPUT);
   pinMode(SWITCH_A_PIN,INPUT_PULLUP);
   pinMode(SWITCH_B_PIN,INPUT_PULLUP);
+  pinMode(STALL_PIN,INPUT_PULLUP);
   switchAdown=false;
   switchBdown=false;
   state=ST_INIT;
@@ -258,7 +260,7 @@ void loop()
           tone(ALARM_PIN,2500,250);
           delay(500);
         }
-        state=ST_INIT;
+        if (digitalRead(STALL_PIN)==HIGH) state=ST_INIT;
         break;
       } // End of state switch
   } // End of infinite while
