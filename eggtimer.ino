@@ -230,7 +230,8 @@ void loop()
 
      case ST_TIMER_START:
         timerStart=millis();
-        count=0,oldcount=-1;
+        t=0;
+        oldcount=-1;
         while(timeTarget-t>=0) {
           t=int((millis()-timerStart)/1000UL);
           // Only update display if things change to stop flickering.
