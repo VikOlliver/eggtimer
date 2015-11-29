@@ -1,0 +1,49 @@
+The Egg Timer
+by Vik Olliver
+
+The Best Universal Gadget for Getting Eggs Right - The BUG
+
+The BUG uses light emitting diodes to display information to the user, and they’re cheap so let’s practice with them first. LEDs have very fine wires in them. How delicate? Poke fine wire wool on a plate with a 9V battery to frazzle it and you’ll get the idea.
+
+To connect things together we use wire jumpers and breadboards. Each side of the breadboard has a line of holes connected together. Each line is electrically separate.
+
+To stop our jumpers shorting to each other they are covered with plastic. Positive wires are usually red, brown, yellow or white, and the negative black,green, blue. Stick with it.
+
+LEDs only conduct one way round, but will fry unless you use a 390R resistor (orange and white stripes) to limit the flow of power. Using the empty breadboard, wire an LED through a resistor to a battery and find which way works.
+
+Now put a switch in the circuit. Tiny switches with 4 legs only work one way round, and if you get it wrong you may short the battery. So wire it up, press the switch, and tap the power wire into the breadboard to see if the circuit works. Congratulations, you have reinvented the torch.
+
+Unclip the battery.
+
+We are going to be using a microcontroller to do the hard work, and it is pre-programmed so you don’t have to learn any programming to use it! The microcontroller is a cheap clone of an Arduino Nano, and they can be had from most electronic hobby stores in the real world or on the interwebs.
+
+On the microcontroller breadboard connect the red battery wire to the microcontroller’s Vin pin, and the black one to the GND pin. Check with your neighbour that you’re not going to blow up your microcontroller, then clip the battery in. You should see a red flashing LED on the microcontroller. The LED is smaller and has no wires because it is assembled by a special robot, not a human.
+
+ALWAYS disconnect the power before fiddling with the breadboard and/or microcontroller.
+
+The microcontroller turns 9V from the battery into 5V - it will run off a USB phone charger too, but do not connect that at the same time. To make the microcontroller light one LED we need a smaller resistor - 220R (two red stripes). Using jumpers and both breadboards, connect the LED to the microcontroller D12 pin and GND, and it will flash when you hook up the battery. There is always a delay after connecting the battery while the microcontroller sorts itself out.
+
+Piezo speakers are little disks of special ceramic sandwiched between conducting plates. The ceramic stretches and shrinks, depending on which way round you connect power. They are very efficient and do not take much power, so we can connect them directly to the microcontroller. Connect one between D11 and GND - you disconnected the power first, right? Sticking the piezo to a flat surface increases its volume.
+
+So far we have dealt with outputs from the microcontroller. Now we will use switches to provide input. Connect one end of a switch to GND and the other to D4. Pressing the switch will stop the awful beeping noise and the flashing LED. Connect another to D5 - it should do the same thing. Label the first one “Start” and the second one “Set”.
+
+Change the piezo wire from D11 to D10.
+
+The LED display uses, well, LEDs. Because there are a lot of them and the microcontroller only has so many pins, we use another little display controller (it’s on on the back of the display circuit board) to run all the LEDs. The microcontroller only needs 2 wires (CLK, the clock, and DIO, the data line) to communicate with the display, but the display does need GND and 5V to power the LEDs.
+
+Using coloured jumpers with sockets on one end, wire the display in. CLK goes to D2, DIO to D3. Don’t forget 5V and GND. Double check with your partner so you don’t fry the display like you did the wire wool. When you connect the power you should see numbers!
+
+Pushing “Start” will start the countdown on your timer. Pressing “Set” will let you change the time. The time of the last countdown is kept in memory on the microcontroller that will not be erased when the power turns off.
+
+To make your timer do useful things, you can connect a relay to it. This is an electrically operated switch that can handle more volts and much more power than the weedy pins on the microcontroller.It too has power pins, ‘+’ for 5V and ‘-’ for GND. Connect these, and the “SIG” pin to D6, using jumpers with sockets on one end. Again, get a buddy to check you’re not going to frazzle the relay board. Now when the countdown finishes, the relay will be turned on for 10 seconds, or until you press a switch.
+
+The relay has two switches in one on it, and they’re connected in a push-me-pull-you configuration: One side is disconnected, the other connected. They change over when the relay powers up. So you can use your timer to keep something powered for a set time, or to turn it on after a delay. A bright light, an electric screwdriver, whatever. If you put a jumper between D7 and GND, the alarm - and relay - will not stop.
+
+Now you can experiment with devices that you might want to turn on and off. Be careful, and do not switch devices powered by the mains! The relay can take the load, but you can’t. If you want a challenge, make your timer pop a balloon when the alarm goes off.
+
+You can download the free Arduino microcontroller programming kit from http://arduino.cc together with dozens of examples of things you can do with it.
+
+The code used for the egg timer is at https://github.com/VikOlliver/eggtimer where there are a few other microcontroller programs that I have written. Have fun! - Vik
+
+This document is placed in the Public Domain by the author, vik@olliver.family.gen.nz
+
